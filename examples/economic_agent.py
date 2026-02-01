@@ -1,6 +1,16 @@
 import requests
 from example_agent import ExampleAgent
 
+def send_task_http(self, target_url, task):
+    try:
+        requests.post(f"{target_url}/run_task", json={
+            "description": task.description,
+            "price": task.price
+        })
+        print(f"[{self.name}] sent task '{task.description}' to {target_url}")
+    except Exception as e:
+        print(f"Error sending task: {e}")
+
 def send_message_http(self, target_url, message):
     try:
         requests.post(f"{target_url}/receive_message", json={"message": message})
