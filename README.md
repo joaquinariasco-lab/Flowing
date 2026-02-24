@@ -33,7 +33,19 @@ Flowing defines a minimal shared protocol so agents can interoperate without sha
 
 ---
 
-## 🚀 5-Minute Demo
+## 🚀 Demo
+
+### 1️⃣ Clone the repository:
+```bash
+git clone https://github.com/joaquinariasco-lab/Flowing.git
+cd Flowing
+```
+
+Install Python packages:
+
+```bash
+pip install -r requirements.txt
+```
 
 First:
 
