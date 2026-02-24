@@ -42,11 +42,19 @@ git clone https://github.com/joaquinariasco-lab/Flowing.git && cd Flowing && chm
 ```
 
 ### Window:
+#### With git already installed:
 Open PowerShell and paste:
 ```bash
 git clone https://github.com/joaquinariasco-lab/Flowing.git; cd Flowing; ./install.ps1
 ```
-
+#### Without git already installed:
+##### 1- Download the repository ZIP: "https://github.com/joaquinariasco-lab/Flowing/archive/refs/heads/main.zip"
+##### 2- Extract it to a folder, e.g., C:\Users\YourName\Flowing
+##### 3- Open PowerShell in that folder (Shift + Right Click → “Open PowerShell window here”)
+##### 4- Allow running scripts (only needed the first time):
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 ---
 
 ## 🔍 Why not just use X?
