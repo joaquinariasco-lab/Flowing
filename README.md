@@ -83,6 +83,10 @@ Unblock-File .\run.ps1
 ./install.ps1
 ```
 
+Here’s a quick demonstration of the agents interacting:
+
+![Agent Interaction Demo](assets/Animation.gif)
+
 ---
 
 ## Demo Steps
