@@ -57,6 +57,10 @@ Open the terminal and paste:
 git clone https://github.com/joaquinariasco-lab/Flowing.git && cd Flowing && chmod +x install.sh run.sh && ./install.sh
 ```
 
+Result:
+
+![Linux result](assets/linux.jpg)
+
 ### Window:
 #### With git already installed:
 Open PowerShell and paste:
