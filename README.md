@@ -1,51 +1,32 @@
 # Flowing
-### A minimal layer letting AI agents from different frameworks communicate and delegate tasks.
+### Observability & Tracing for Multi-Agent AI Workflows
+Flowing provides tools to trace, log, and visualize how multiple AI agents interact and execute workflows, helping developers debug, understand, and improve agent coordination.
 
-Make a LangChain agent talk to a CrewAI agent in minutes.
+Rather than focusing on orchestration or being a universal interoperability layer, Flowing focuses on structured execution visibility so you can answer questions like:
+- What steps did each agent take?
+- When did tool calls happen and why?
+- Where did context pass between agents?
+- What caused a workflow to succeed or fail?
+This visibility is essential for troubleshooting, performance optimization, cost control, and trust in multi-agent systems.
 
 ---
 
-## Why this exists
-
-Today, AI agents built with:
-- LangChain
-- CrewAI
-- AutoGPT-style systems
-
-And cannot communicate natively.
-
-Each team rebuilds:
-- Message passing
-- Task delegation
-- Context exchange
-- Execution boundaries
-
-Flowing defines a minimal shared protocol so agents can interoperate without sharing a framework.
+## 🎯 Why This Matters
+Multi-agent systems are complex:
+- Agents plan, reason, call tools, and coordinate asynchronously.
+- Silent errors and emergent behavior are common.
+- Traditional logs and simple prints don’t provide enough insight.
+Flowing captures rich execution data structured logs, spans, traces, and interaction graphs to help you see what’s happening and why.
 
 ---
 
 ## ⚡What you can do with it
-- Run two independent agents on different ports
-- Send structured tasks between them
-- Delegate execution safely
-- Maintain execution boundaries
-- Build framework adapters
-
----
-
-## Architecture
-
-This diagram shows how AgentA and AgentX communicate using the Flowing interoperability layer:
-
-```mermaid
-flowchart TD
-    Repo[Flowing Repo] --> AgentA
-    Repo --> AgentX
-    AgentA -->|send message| AgentX
-    AgentX -->|respond| AgentA
-    AgentA -->|run task| AgentX
-    AgentX -->|update balance| AgentA
-```
+With Flowing’s current MVP you can:
+- Run multiple independent agents and record execution traces
+- Capture structured events for agent actions and tool invocations
+- Reconstruct cross-agent workflows
+- Generate interactive trace visualizations
+- Improve debugging and reproducibility of complex runs
 
 ---
 
@@ -93,7 +74,7 @@ Here’s a quick demonstration of the agents interacting:
 
 ---
 
-## Demo Steps
+## 📋 Demo Steps
 
 This flowchart shows the steps when running the demo:
 
@@ -107,7 +88,7 @@ flowchart LR
     AgentX -->|Print Message & Execute Task| Terminal
 ```
 
-## Agent Interaction Example
+## 🔄 Agent Interaction Example
 
 ```mermaid
 sequenceDiagram
@@ -122,52 +103,60 @@ sequenceDiagram
 
 ---
 
-## 🔍 Why not just use X?
-| Tool       | Limitation                        |
-|------------|----------------------------------|
-| LangChain  | No cross-framework protocol       |
-| CrewAI     | Tight ecosystem coupling          |
-| AutoGPT    | Monolithic execution model        |
+## 🏗️ Architecture
 
-Flowing focuses only on interoperability.
-Not orchestration.
-Not LLMs.
-Not SaaS.
-Just the protocol.
+This diagram shows how AgentA and AgentX communicate:
 
----
-
-## 🧠 Core Design Principles
-
-- Agents are networked actors
-- Execution is isolated
-- Coordination primitives are minimal
-- No vendor lock-in
+```mermaid
+flowchart TD
+    Repo[Flowing Repo] --> AgentA
+    Repo --> AgentX
+    AgentA -->|send message| AgentX
+    AgentX -->|respond| AgentA
+    AgentA -->|run task| AgentX
+    AgentX -->|update balance| AgentA
+```
 
 ---
 
-## 📦 Current State
-
-Experimental.
-Interface definitions evolving.
-
-Includes:
-- BaseAgent interface
-- Draft protocol
-- Two reference agent servers
-- Message + task examples
+## 🧠 What This Repo Includes
+- Structured trace capture and logging utilities
+- Execution span schema for multi-agent workflows
+- Scripts to run demos and visualize behavior
+- Base interfaces that emit telemetry
 
 ---
 
-## 🛣 Roadmap
-- Adapter for LangChain
-- Adapter for CrewAI
-- Standardized task schema
-- Permission system
-- Discovery mechanism
+## 🚧 Current Status
+This project is experimental but functional:
+
+✔ Structured logging and trace capture
+
+✔ Execution spans for agent actions
+
+✔ Interactive trace visualization output
+
+❌ Universal cross-framework interoperability (future work)
+
+❌ Production dashboard or hosted API
+
+---
+
+## 📈 Roadmap
+Planned improvements include:
+- Enhanced visual dashboards for traces
+- Standardized trace schema
+- Replay mode for debugging workflows
+- Plugins for external observability systems (e.g., OpenTelemetry)
+- Enterprise features (enterprise API, alerting, retention)
 
 --- 
-## 🤝 Contributing
 
-If you're building agents and re-implementing glue code,
-this repo is for you.
+## 🤝 Contributing
+This repo is for developers building, debugging, or improving multi-agent AI workflows. If you care about:
+- Agent execution visibility
+- Reproducible runs
+- Structured trace semantics
+- Better debugging outcomes
+
+…then this project is for you. Pull requests and feedback welcome.
