@@ -78,7 +78,11 @@ class BaseAgent(ABC):
             try:
                 response = requests.post(
                     f"{agent_url}/receive_message",
-                    json={"message": message, "sender": self.name},
+                    json={
+                      "message": message,
+                      "sender": self.name,
+                      "trace_id": self.tracer.trace_id
+                   },
                     timeout=self.retry_policy["timeout"]
                 )
                 response.raise_for_status()
