@@ -15,3 +15,5 @@ with tracer.decision_span("executor", parent_id=tracer.events[0].decision_id) as
     span.record_output("Found 3 relevant papers")
 
 tracer.export_json("trace.json")
+
+print("Trace exported correctly")
