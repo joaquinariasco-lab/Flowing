@@ -1,8 +1,4 @@
-import uuid
-
-
-def call_llm(runtime, agent_id, prompt, real_llm_call):
-    decision_id = str(uuid.uuid4())
+def call_llm(runtime, decision_id, agent_id, prompt, real_llm_call):
 
     # REPLAY MODE
     if runtime.mode == "replay":
@@ -19,6 +15,7 @@ def call_llm(runtime, agent_id, prompt, real_llm_call):
         "parent_id": None,
     }
 
+    # TODO: enviar a tu tracer real
     print("TRACE EVENT:", event)
 
     return output
