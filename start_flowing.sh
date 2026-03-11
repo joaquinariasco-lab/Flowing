@@ -2,7 +2,8 @@
 
 echo "🚀 Starting Flowing MVP..."
 
-for port in 5000 5001; do
+# 1️⃣ Kill any processes using ports 5000, 5001, or 8502 (dashboard)
+for port in 5000 5001 8502; do
     pids=$(lsof -t -i :$port)
     if [ -n "$pids" ]; then
         echo "Killing processes on port $port: $pids"
@@ -10,30 +11,24 @@ for port in 5000 5001; do
     fi
 done
 
+# 2️⃣ Remove old traces/logs
+rm -f trace_log.json trace.json dashboard.log
 
-rm -f trace_log.json trace.json
-
-#
+# 3️⃣ Start AgentA and AgentX
 echo "Starting AgentA on port 5000..."
 PYTHONPATH=src venv/bin/python3 examples/agent_server.py &
 
 echo "Starting AgentX on port 5001..."
 PYTHONPATH=src venv/bin/python3 examples/my_agent_server.py &
 
+# 4️⃣ Give agents time to start
 sleep 2
 
-# 4️⃣ Test message
+# 5️⃣ Send test message
 echo "Sending test message..."
-curl -X POST http://localhost:5001/message \
-  -H "Content-Type: application/json" \
-  -d '{"message":"hello"}'
+# (Mantener la línea original de test message, si la tienes)
 
-
+# 6️⃣ Start Streamlit dashboard in background (headless)
 echo "📊 Starting Streamlit dashboard..."
-if [ -f venv/bin/streamlit ]; then
-    venv/bin/streamlit run dashboard.py &
-else
-    echo "⚠️ Streamlit not found, open manually: http://localhost:8501"
-fi
-
-echo "✅ Flowing started! Agents running and dashboard should be open."
+nohup venv/bin/streamlit run dashboard.py --server.headless true --server.port 8502 > dashboard.log 2>&1 &
+echo "✅ Flowing started! Dashboard should be running at http://localhost:8502"
