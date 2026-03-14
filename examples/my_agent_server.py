@@ -55,10 +55,26 @@ trace_event("AgentX", "received_message", {"info": "message received"})
 @app.route("/run_task", methods=["POST"])
 def run_task():
     data = request.json
-    return agent.on_task(data.get("description"), data.get("price"))
+    return execute_task(data.get("description"), data.get("price"))
+
+# ✅ Properly defined execute_task with tracing
+@trace_agent
+def execute_task(task, price=None):
+    start_time = time.time()
+    response = agent.on_task(task, price=price) if hasattr(agent, "on_task") else f"Executed: {task}"
+    duration = time.time() - start_time
+
+    # Record in tracer
+    event = DecisionEvent(
+        agent_id=agent.name,
+        prompt=task,
+        model="demo-model",
+        temperature=0.0,
+        output=response
+    )
+    tracer.record(event)
+
+    return {"response": response, "duration_seconds": duration}
 
 if __name__ == "__main__":
     app.run(port=5001)
-
-@trace_agent
-def execute_task(task):
