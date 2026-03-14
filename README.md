@@ -1,3 +1,7 @@
+![Flowing UI](assets/Flowing_logo.png)
+
+---
+
 # Flowing
 ### Reproducibility and traceability of LLM decisions in multi-agent workflows in Python
 
