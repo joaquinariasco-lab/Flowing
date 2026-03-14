@@ -1,3 +1,4 @@
+from flowing import trace_agent
 from tracer import trace_event
 from flask import Flask, request
 from my_agent import MyAgent
@@ -58,3 +59,6 @@ def run_task():
 
 if __name__ == "__main__":
     app.run(port=5001)
+
+@trace_agent
+def execute_task(task):
