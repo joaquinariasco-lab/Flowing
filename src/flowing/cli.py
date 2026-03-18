@@ -3,55 +3,55 @@ import subprocess
 import time
 import os
 import sys
+import webbrowser
 
 @click.group()
 def main():
-    """Flowing OS: The Interoperability Layer for AI Agents."""
+    """Flowing: The Zero-Friction Debugger for AI Agents."""
     pass
 
 @main.command()
 def dashboard():
     """Launch the Real-Time Observability Dashboard."""
     click.echo("🚀 Launching Flowing Dashboard...")
-    # This assumes your streamlit file is moved to the package
+    # Adjust path to where your streamlit app lives
     subprocess.Popen(["streamlit", "run", "src/flowing/observability/dashboard.py"])
 
 @main.command()
-@click.option('--agents', default=3, help='Number of worker agents to start.')
-def demo(agents):
-    """WOW EFFECT: Start a full agentic ecosystem in seconds."""
-    click.secho("🌊 Initializing Flowing Ecosystem...", fg='cyan', bold=True)
+def demo():
+    """WOW EFFECT: Start a full debugging ecosystem instantly."""
+    click.secho("🌊 Initializing Flowing Debugger Ecosystem...", fg='cyan', bold=True)
     
-    # 1. Start the Dashboard first
+    # 1. Start the Dashboard (The Niche)
+    click.echo("📊 Starting Observability UI...")
     subprocess.Popen(["streamlit", "run", "src/flowing/observability/dashboard.py"], 
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    time.sleep(2)
     
-    # 2. Start the Worker Agents (using your GenericWorker logic)
-    for i in range(agents):
+    # Give Streamlit a moment to start
+    time.sleep(3)
+    webbrowser.open("http://localhost:8501")
+    
+    # 2. Start two Worker Agents on different ports
+    for i in range(2):
         port = 5000 + i
-        name = f"Worker_{i+1}"
-        click.echo(f"🤖 Starting {name} on port {port}...")
-        # Use sys.executable to ensure we use the same environment
+        name = f"Agent_{chr(65+i)}" # Agent_A, Agent_B
+        click.echo(f"🤖 Spinning up {name} on port {port}...")
         subprocess.Popen([sys.executable, "-m", "flowing.agents.server", 
                          "--name", name, "--port", str(port)],
                          stdout=subprocess.DEVNULL)
     
-    time.sleep(1)
+    time.sleep(2)
     
-    # 3. Start the Autonomous Controller (The Economy)
-    click.secho("💰 Activating Autonomous Economy Controller...", fg='green')
-    # This runs your '04_autonomous_economy.py' logic
-    subprocess.Popen([sys.executable, "examples/04_autonomous_economy.py"])
+    # 3. Run a sample Trace to show data immediately
+    click.secho("📝 Generating initial trace data...", fg='yellow')
+    # This runs one of your example scripts to populate the dashboard
+    subprocess.run([sys.executable, "examples/01_quickstart.py"])
 
-    click.secho("\n✅ System Running!", fg='cyan', bold=True)
-    click.echo("View live traces and agent balances at: http://localhost:8501")
-    click.echo("Press Ctrl+C to stop the ecosystem.")
+    click.secho("\n✅ SYSTEM LIVE!", fg='green', bold=True)
+    click.echo("Check your browser at http://localhost:8501 to see the live traces.")
+    click.echo("Press Ctrl+C to stop the demo.")
     
     try:
         while True: time.sleep(1)
     except KeyboardInterrupt:
-        click.echo("\n🛑 Shutting down ecosystem...")
-
-if __name__ == "__main__":
-    main()
+        click.echo("\n🛑 Shutting down...")
