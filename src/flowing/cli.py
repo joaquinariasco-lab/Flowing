@@ -45,8 +45,8 @@ def demo():
     # 3. Run a sample Trace to show data immediately
     click.secho("📝 Generating initial trace data...", fg='yellow')
     # This runs one of your example scripts to populate the dashboard
-    subprocess.run([sys.executable, "examples/01_quickstart.py"])
-
+    subprocess.run([sys.executable, "examples/simple_workflow.py"])
+    
     click.secho("\n✅ SYSTEM LIVE!", fg='green', bold=True)
     click.echo("Check your browser at http://localhost:8501 to see the live traces.")
     click.echo("Press Ctrl+C to stop the demo.")
