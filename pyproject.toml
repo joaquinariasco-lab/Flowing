@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flowing-os"
-version = "0.1.4"
+version = "0.1.2"
 description = "Interoperability and observability layer for multi-agent AI systems"
 readme = "README.md"
 requires-python = ">=3.9"
