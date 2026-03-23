@@ -15,7 +15,9 @@ def call_llm(runtime, decision_id, agent_id, prompt, real_llm_call):
         "parent_id": None,
     }
 
-    from flowing.observability.tracer import tracer
+    # ✅ Corrected import
+    from flowing.observability.tracer import Tracer
+    tracer = Tracer()  # create an instance
     tracer.record(event)
 
     return output
