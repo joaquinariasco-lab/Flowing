@@ -11,7 +11,7 @@
 ### Run this in your terminal to launch the full Observability Dashboard and a live Agentic Demo:
 
 ```bash
-python3 -m venv venv && source venv/bin/activate && pip install flowing-os && flowing demo
+python3 -m venv flowing-env && source flowing-env/bin/activate && pip install flowing-os && flowing demo
 ```
 
 ---
@@ -22,6 +22,7 @@ Multi-agent systems are complex:
 - Silent errors and emergent behavior are common.
 - Traditional logs and simple prints don’t provide enough insight.
 Flowing captures rich execution data structured logs, spans, traces, and interaction graphs to help you see what’s happening and why.
+
 
 ---
 
