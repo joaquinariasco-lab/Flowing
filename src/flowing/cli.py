@@ -5,6 +5,7 @@ import sys
 import webbrowser
 import signal
 import socket
+import os
 from importlib.resources import files
 
 # Global process registry
@@ -67,6 +68,20 @@ def get_dashboard_path():
     return files("flowing.observability").joinpath("dashboard.py")
 
 
+def safe_open_browser(url: str):
+    """
+    Safely attempt to open a browser.
+    Avoids gio / headless environment errors.
+    """
+    try:
+        if os.environ.get("DISPLAY") or sys.platform in ("win32", "darwin"):
+            webbrowser.open(url)
+        else:
+            click.echo(f"🌐 Dashboard available at: {url}")
+    except Exception:
+        click.echo(f"🌐 Dashboard available at: {url}")
+
+
 # ----------------------------
 # CLI
 # ----------------------------
@@ -92,8 +107,9 @@ def dashboard():
     ])
 
     if wait_for_port(port):
-        webbrowser.open(f"http://localhost:{port}")
-        click.echo(f"Dashboard running at http://localhost:{port}")
+        url = f"http://localhost:{port}"
+        safe_open_browser(url)
+        click.echo(f"Dashboard running at {url}")
     else:
         click.echo("❌ Failed to start dashboard.")
 
@@ -126,7 +142,8 @@ def demo():
         click.echo("❌ Dashboard failed to start.")
         shutdown()
 
-    webbrowser.open(f"http://localhost:{dashboard_port}")
+    dashboard_url = f"http://localhost:{dashboard_port}"
+    safe_open_browser(dashboard_url)
 
     # ----------------------------
     # 2. Start Agents
@@ -166,7 +183,7 @@ def demo():
     # 4. Final UX
     # ----------------------------
     click.secho("\n✅ SYSTEM LIVE", fg='green', bold=True)
-    click.echo(f"Dashboard: http://localhost:{dashboard_port}")
+    click.echo(f"Dashboard: {dashboard_url}")
     click.echo("Agents: running")
     click.echo("\nPress Ctrl+C to stop")
 
