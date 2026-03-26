@@ -11,17 +11,16 @@ from importlib.resources import files
 # Global process registry
 processes = []
 
-
 # ----------------------------
 # Utils
 # ----------------------------
 
-def start_process(cmd, silent=False):
+def start_process(cmd, silent=False, env=None):
     """Start a subprocess and track it."""
     if silent:
-        p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env)
     else:
-        p = subprocess.Popen(cmd)
+        p = subprocess.Popen(cmd, env=env)
     processes.append(p)
     return p
 
@@ -100,12 +99,16 @@ def dashboard():
     dashboard_path = str(get_dashboard_path())
     port = get_free_port()
 
+    # Env to disable Streamlit auto browser
+    env = os.environ.copy()
+    env["BROWSER"] = "none"
+
     start_process([
         sys.executable, "-m", "streamlit", "run",
         dashboard_path,
         "--server.port", str(port),
-        "--server.headless", "true",  # ✅ Disable auto browser open
-    ])
+        "--server.headless", "true",
+    ], env=env)
 
     if wait_for_port(port):
         url = f"http://localhost:{port}"
@@ -133,12 +136,15 @@ def demo():
 
     click.echo("📊 Starting Observability UI...")
 
+    env = os.environ.copy()
+    env["BROWSER"] = "none"  # ✅ prevents gio errors
+
     start_process([
         sys.executable, "-m", "streamlit", "run",
         dashboard_path,
         "--server.port", str(dashboard_port),
-        "--server.headless", "true",  # ✅ Disable auto browser open
-    ], silent=True)
+        "--server.headless", "true",
+    ], silent=True, env=env)
 
     if not wait_for_port(dashboard_port):
         click.echo("❌ Dashboard failed to start.")
