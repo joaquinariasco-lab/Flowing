@@ -11,7 +11,7 @@
 ### Run this in your terminal to launch the full Observability Dashboard and a live Agentic Demo:
 
 ```bash
-python3 -m venv flowing-env && source flowing-env/bin/activate && pip install flowing-os && flowing demo
+python3 -m venv flowing-env && source flowing-env/bin/activate && pip install --no-cache-dir "flowing-os>=0.2.0" && flowing demo
 ```
 
 ---
