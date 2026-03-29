@@ -1,14 +1,13 @@
 ![Flowing UI](assets/Flowing_logo.png)
 
 
-# Flowing: The Debugger for AI Agents Workflow.
-### Instantly trace, record, and audit every decision in your multi-agent workflow.
-### Stop guessing why your agents fail. Flowing provides a "Source of Truth" for complex AI interactions.
-
+# Flowing: Execution & Observability Layer for AI Agents
+### Run, monitor, and control complex multi-agent workflows with full visibility.
+### Flowing provides a "Source of Truth" for AI agent interactions, from execution traces to observability insights.
 ---
 
 ## ⚡ 10-Second Quick Start
-### Run this in your terminal to launch the full Observability Dashboard and a live Agentic Demo:
+### Launch the full observability dashboard and a live agent demo:
 
 ```bash
 python3 -m venv flowing-env && source flowing-env/bin/activate && pip install --no-cache-dir "flowing-os>=0.2.0" && flowing demo
@@ -21,13 +20,12 @@ Multi-agent systems are complex:
 - Agents plan, reason, call tools, and coordinate asynchronously.
 - Silent errors and emergent behavior are common.
 - Traditional logs and simple prints don’t provide enough insight.
-Flowing captures rich execution data structured logs, spans, traces, and interaction graphs to help you see what’s happening and why.
-
+Flowing OS captures structured execution data, spans, traces, and interaction graphs so you can see what’s happening and why, forming the foundation for observability and control.
 
 ---
 
-## ⚡What you can do with it
-With Flowing’s current MVP you can:
+## ⚡Current Capabilities
+With Flowing today you can:
 - Run multiple independent agents and record execution traces
 - Capture structured events for agent actions and tool invocations
 - Reconstruct cross-agent workflows
@@ -36,7 +34,7 @@ With Flowing’s current MVP you can:
 
 ---
 
-## 🧠 What This Repo Includes
+## 🧠 Repo Contents
 - Structured trace capture and logging utilities
 - Execution span schema for multi-agent workflows
 - Scripts to run demos and visualize behavior
@@ -45,7 +43,7 @@ With Flowing’s current MVP you can:
 ---
 
 ## 🚧 Current Status
-This project is experimental but functional:
+Flowing is experimental but functional:
 
 ✔ Structured logging and trace capture
 
@@ -55,7 +53,7 @@ This project is experimental but functional:
 
 ❌ Universal cross-framework interoperability (future work)
 
-❌ Production dashboard or hosted API
+❌ Hosted dashboard or production API
 
 ---
 
@@ -65,7 +63,8 @@ Planned improvements include:
 - Standardized trace schema
 - Replay mode for debugging workflows
 - Plugins for external observability systems (e.g., OpenTelemetry)
-- Enterprise features (enterprise API, alerting, retention)
+- Enterprise features (API, alerting, retention)
+- Execution control capabilities (future expansion beyond observability)
 
 --- 
 
@@ -74,6 +73,6 @@ This repo is for developers building, debugging, or improving multi-agent AI wor
 - Agent execution visibility
 - Reproducible runs
 - Structured trace semantics
-- Better debugging outcomes
+- Debugging and workflow control
 
 …then this project is for you. Pull requests and feedback welcome.
