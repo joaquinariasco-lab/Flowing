@@ -1,5 +1,12 @@
-![Flowing UI](assets/Flowing_logo.png)
-
+<p align="center">
+  <img src="assets/Flowing_logo.png" alt="Flowing UI" />
+  <img src="https://img.shields.io/badge/status-experimental-orange" />
+  <img src="https://img.shields.io/badge/focus-AI%20reliability%20layer-blue" />
+  <img src="https://img.shields.io/badge/enforcement-active-brightgreen" />
+  <img src="https://img.shields.io/badge/output-validated-blueviolet" />
+  <img src="https://img.shields.io/badge/execution-controlled-critical" />
+  <img src="https://img.shields.io/badge/license-MIT-lightgrey" />
+</p>
 
 # Flowing: Reliability & Execution Enforcement Layer for AI Systems
 ### Enforce correctness. Prevent invalid outputs. Make AI systems predictable.
