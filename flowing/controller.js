@@ -1,70 +1,64 @@
-import Ajv from "ajv";
-import addFormats from "ajv-formats";
-import { getAIResponse } from "./aiClient.js";
+import json
+from jsonschema import Draft7Validator, ValidationError
 
-const ajv = new Ajv({ allErrors: true, strict: false });
-addFormats(ajv);
+# You must implement this
+# def get_ai_response(prompt: str, api_key: str) -> str:
+#     ...
 
-/**
- * Validates and enforces schema on AI output.
- * Retries until valid or maxRetries reached.
- * 
- * @param {string} prompt - Original developer prompt
- * @param {object} schema - JSON schema provided by developer
- * @param {string} apiKey - API key
- * @param {number} maxRetries - Max retry attempts
- * @returns {Promise<object>} - Valid structured output
- */
-export async function getValidatedAIResponse(
-    prompt,
-    schema,
-    apiKey,
-    maxRetries = 3
-) {
-    const validate = ajv.compile(schema);
+def get_validated_ai_response(
+    prompt: str,
+    schema: dict,
+    api_key: str,
+    max_retries: int = 3
+) -> dict:
+    """
+    Validates and enforces schema on AI output.
+    Retries until valid or max_retries reached.
 
-    let attempt = 0;
-    let lastError = null;
+    :param prompt: Original developer prompt
+    :param schema: JSON schema provided by developer
+    :param api_key: API key
+    :param max_retries: Max retry attempts
+    :return: Valid structured output (dict)
+    """
 
-    while (attempt < maxRetries) {
-        attempt++;
+    validator = Draft7Validator(schema)
 
-        try {
-            // Force structured output instruction
-            const structuredPrompt = `
+    attempt = 0
+    last_error = None
+
+    while attempt < max_retries:
+        attempt += 1
+
+        try:
+            structured_prompt = f"""
 Return ONLY valid JSON matching this schema:
-${JSON.stringify(schema)}
+{json.dumps(schema)}
 
 User request:
-${prompt}
-            `;
+{prompt}
+"""
 
-            const rawOutput = await getAIResponse(structuredPrompt, apiKey);
+            raw_output = get_ai_response(structured_prompt, api_key)
 
-            let parsed;
+            try:
+                parsed = json.loads(raw_output)
+            except json.JSONDecodeError:
+                raise ValueError("Invalid JSON format")
 
-            try {
-                parsed = JSON.parse(rawOutput);
-            } catch (err) {
-                throw new Error("Invalid JSON format");
-            }
+            errors = list(validator.iter_errors(parsed))
 
-            const valid = validate(parsed);
+            if not errors:
+                return parsed
+            else:
+                last_error = [e.message for e in errors]
+                print(f"Validation failed (attempt {attempt}): {last_error}")
 
-            if (valid) {
-                return parsed;
-            } else {
-                lastError = validate.errors;
-                console.warn(`Validation failed (attempt ${attempt})`, validate.errors);
-            }
+        except Exception as err:
+            last_error = str(err)
+            print(f"Attempt {attempt} failed: {last_error}")
 
-        } catch (err) {
-            lastError = err.message;
-            console.warn(`Attempt ${attempt} failed:`, err.message);
-        }
-    }
-
-    throw new Error(
-        `Failed to generate valid response after ${maxRetries} attempts.\nLast error: ${JSON.stringify(lastError)}`
-    );
-}
+    raise Exception(
+        f"Failed to generate valid response after {max_retries} attempts.\n"
+        f"Last error: {last_error}"
+    )
