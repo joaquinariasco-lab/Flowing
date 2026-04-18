@@ -20,8 +20,8 @@ It is a runtime layer that sits between your AI system and execution, ensuring t
 ### Clone and run locally:
 
 ```bash
-git clone https://github.com/your-username/flowing.git
-cd flowing
+git clone https://github.com/joaquinariasco-lab/Flowing.git
+cd Flowing
 python3 -m venv flowing-env
 source flowing-env/bin/activate
 pip install -r requirements.txt
